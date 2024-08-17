@@ -1,10 +1,8 @@
-export function formatJsonApiResponse(data: any | any[], type: string) {
+export function formatJsonApiResponse(data: any | any[], type: string, meta?: any) {
   if (data === null) {
     return {
       data: {},
-      meta: {
-        success: true,
-      }
+      meta: meta ? { ...meta } : undefined
     }
   }
 
@@ -18,6 +16,7 @@ export function formatJsonApiResponse(data: any | any[], type: string) {
           id: undefined,
         },
       })),
+      meta: meta ? { ...meta } : undefined
     };
   }
 
@@ -30,9 +29,7 @@ export function formatJsonApiResponse(data: any | any[], type: string) {
         id: undefined,
       },
     },
-    meta: {
-      success: true,
-    }
+    meta: meta ? { ...meta } : undefined
   };
 }
 

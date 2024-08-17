@@ -1,23 +1,23 @@
 import { Repository } from 'typeorm'
-import { BaptismDto } from './baptism.dto'
-import { Baptism } from './baptism.entity'
+import { ConfirmationDto } from './confirmation.dto'
+import { Confirmation } from './confirmation.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { empty } from 'src/core/helpers'
 
 @Injectable()
-export class BaptismService {
+export class ConfirmationService {
 
-  constructor(@InjectRepository(Baptism) private baptismRepository:Repository<Baptism>) {}
+  constructor(@InjectRepository(Confirmation) private confirmationRepository:Repository<Confirmation>) {}
 
-  create(createBaptism: BaptismDto) {
-    const newBaptism = this.baptismRepository.create(createBaptism)
-    return this.baptismRepository.save(newBaptism)
+  create(createConfirmation: ConfirmationDto) {
+    const newConfirmation = this.confirmationRepository.create(createConfirmation)
+    return this.confirmationRepository.save(newConfirmation)
   }
 
   async findAll(pageSize = null, pageNumber = null, searchWord = null, sortColumn = null, sortOrder = null) {
 
-    const query = this.baptismRepository.createQueryBuilder('baptism')
+    const query = this.confirmationRepository.createQueryBuilder('confirmation')
 
     if (!empty(searchWord)) {
       ['name', 'father_name', 'mother_name', 'godfather_name', 'godmother_name'].forEach((field) => {
@@ -47,16 +47,16 @@ export class BaptismService {
   }
 
   findOne(id: number) {
-    return this.baptismRepository.findOne({
+    return this.confirmationRepository.findOne({
       where: { id }
     })
   }
 
-  update(id: number, updateBaptism: BaptismDto) {
-    return this.baptismRepository.update({ id }, updateBaptism)
+  update(id: number, updateConfirmation: ConfirmationDto) {
+    return this.confirmationRepository.update({ id }, updateConfirmation)
   }
 
   remove(id: number) {
-    return this.baptismRepository.delete({ id })
+    return this.confirmationRepository.delete({ id })
   }
 }

@@ -1,21 +1,21 @@
-import { BaptismDto } from './baptism.dto'
-import { BaptismService } from './baptism.service'
+import { ConfirmationDto } from './confirmation.dto'
+import { ConfirmationService } from './confirmation.service'
 import { empty, formatJsonApiResponse } from 'src/core/helpers'
 import { JsonApiBodyDto } from 'src/core/dto/json-api-body.dto'
 import { PaginationAndSearchQueryDto } from 'src/core/dto/pagination-and-search-query.dto'
 import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, HttpException, Query } from '@nestjs/common'
 
-const RESPONSE_TYPE = 'baptisms'
+const RESPONSE_TYPE = 'confirmations'
 
-@Controller('baptisms')
-export class BaptismController {
-  constructor(private readonly baptismService: BaptismService) {}
+@Controller('confirmations')
+export class ConfirmationController {
+  constructor(private readonly ConfirmationService: ConfirmationService) {}
 
   @Get()
   async findAll(@Query() paginationQuery: PaginationAndSearchQueryDto) {
     const { pageNumber, pageSize, search, sortColumn, sortOrder } = paginationQuery;
 
-    const response = await this.baptismService.findAll(pageSize, pageNumber, search, sortColumn, sortOrder)
+    const response = await this.ConfirmationService.findAll(pageSize, pageNumber, search, sortColumn, sortOrder)
 
     return formatJsonApiResponse(response.data, RESPONSE_TYPE, {
       totalPages: Math.ceil(response.total / pageSize),
@@ -26,7 +26,7 @@ export class BaptismController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const baptism = await this.baptismService.findOne(+id)
+    const baptism = await this.ConfirmationService.findOne(+id)
 
     if (!baptism) {
       throw new NotFoundException(`The requested resource with ID '${id}' was not found.`);
@@ -36,19 +36,19 @@ export class BaptismController {
   }
 
   @Post()
-  async create(@Body() data: JsonApiBodyDto<BaptismDto>) {
+  async create(@Body() data: JsonApiBodyDto<ConfirmationDto>) {
     const currentBaptism = { 
       ...data.data.attributes,
       organization_id: 1,
     }
   
-    const savedBaptism = await this.baptismService.create(currentBaptism)
+    const savedBaptism = await this.ConfirmationService.create(currentBaptism)
     return formatJsonApiResponse(savedBaptism, RESPONSE_TYPE)
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: JsonApiBodyDto<BaptismDto>) {
-    const baptism = await this.baptismService.findOne(+id)
+  async update(@Param('id') id: string, @Body() data: JsonApiBodyDto<ConfirmationDto>) {
+    const baptism = await this.ConfirmationService.findOne(+id)
 
     if (!baptism) {
       throw new NotFoundException(`The requested resource with ID '${id}' was not found.`);
@@ -58,7 +58,7 @@ export class BaptismController {
       ...data.data.attributes,
     }
 
-    const response = await this.baptismService.update(+id, updatedData)
+    const response = await this.ConfirmationService.update(+id, updatedData)
 
     if (empty(response.affected)) {
       throw new HttpException('Internal Server Error', 500);
@@ -70,7 +70,7 @@ export class BaptismController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const response = await this.baptismService.remove(+id)
+    const response = await this.ConfirmationService.remove(+id)
 
     if (empty(response.affected)) {
       throw new NotFoundException(`The requested resource with ID '${id}' was not found.`);

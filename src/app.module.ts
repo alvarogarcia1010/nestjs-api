@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { AppService } from './app.service'
 import { AppController } from './app.controller'
 import { BaptismModule } from './baptism/baptism.module'
+import { ConfirmationModule } from './confirmation/confirmation.module'
 import { JsonApiExceptionFilter } from './core/utils/json-api-exception.filter'
 
 @Module({
@@ -21,7 +22,8 @@ import { JsonApiExceptionFilter } from './core/utils/json-api-exception.filter'
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    BaptismModule
+    BaptismModule,
+    ConfirmationModule,
   ],
   controllers: [AppController],
   providers: [
