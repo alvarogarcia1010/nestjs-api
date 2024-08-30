@@ -17,7 +17,7 @@ export class ConfirmationService {
 
   async findAll(pageSize = null, pageNumber = null, searchWord = null, sortColumn = null, sortOrder = null) {
 
-    const query = this.confirmationRepository.createQueryBuilder('confirmation')
+    const query = this.confirmationRepository.createQueryBuilder('confirmations')
 
     if (!empty(searchWord)) {
       ['name', 'father_name', 'mother_name', 'godfather_name', 'godmother_name'].forEach((field) => {

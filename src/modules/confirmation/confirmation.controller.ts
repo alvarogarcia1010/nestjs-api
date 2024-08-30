@@ -26,31 +26,31 @@ export class ConfirmationController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const baptism = await this.ConfirmationService.findOne(+id)
+    const confirmation = await this.ConfirmationService.findOne(+id)
 
-    if (!baptism) {
+    if (!confirmation) {
       throw new NotFoundException(`The requested resource with ID '${id}' was not found.`);
     }
 
-    return formatJsonApiResponse(baptism, RESPONSE_TYPE)
+    return formatJsonApiResponse(confirmation, RESPONSE_TYPE)
   }
 
   @Post()
   async create(@Body() data: JsonApiBodyDto<ConfirmationDto>) {
-    const currentBaptism = { 
+    const currentConfirmation = { 
       ...data.data.attributes,
       organization_id: 1,
     }
   
-    const savedBaptism = await this.ConfirmationService.create(currentBaptism)
-    return formatJsonApiResponse(savedBaptism, RESPONSE_TYPE)
+    const savedConfirmation = await this.ConfirmationService.create(currentConfirmation)
+    return formatJsonApiResponse(savedConfirmation, RESPONSE_TYPE)
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() data: JsonApiBodyDto<ConfirmationDto>) {
-    const baptism = await this.ConfirmationService.findOne(+id)
+    const confirmation = await this.ConfirmationService.findOne(+id)
 
-    if (!baptism) {
+    if (!confirmation) {
       throw new NotFoundException(`The requested resource with ID '${id}' was not found.`);
     }
 
@@ -64,8 +64,8 @@ export class ConfirmationController {
       throw new HttpException('Internal Server Error', 500);
     }
 
-    const updatedBaptism = Object.assign(baptism, data)
-    return formatJsonApiResponse(updatedBaptism, RESPONSE_TYPE)
+    const updatedConfirmation = Object.assign(confirmation, data)
+    return formatJsonApiResponse(updatedConfirmation, RESPONSE_TYPE)
   }
 
   @Delete(':id')

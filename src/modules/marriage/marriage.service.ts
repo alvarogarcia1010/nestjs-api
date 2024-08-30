@@ -1,26 +1,26 @@
 import { Repository } from 'typeorm'
-import { BaptismDto } from './baptism.dto'
-import { Baptism } from './baptism.entity'
+import { MarriageDto } from './marriage.dto'
+import { Marriage } from './marriage.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { empty } from 'src/core/helpers'
 
 @Injectable()
-export class BaptismService {
+export class MarriageService {
 
-  constructor(@InjectRepository(Baptism) private baptismRepository:Repository<Baptism>) {}
+  constructor(@InjectRepository(Marriage) private marriageRepository:Repository<Marriage>) {}
 
-  create(createBaptism: BaptismDto) {
-    const newBaptism = this.baptismRepository.create(createBaptism)
-    return this.baptismRepository.save(newBaptism)
+  create(createMarriage: MarriageDto) {
+    const newMarriage = this.marriageRepository.create(createMarriage)
+    return this.marriageRepository.save(newMarriage)
   }
 
   async findAll(pageSize = null, pageNumber = null, searchWord = null, sortColumn = null, sortOrder = null) {
 
-    const query = this.baptismRepository.createQueryBuilder('baptism')
+    const query = this.marriageRepository.createQueryBuilder('marriages')
 
     if (!empty(searchWord)) {
-      ['name', 'father_name', 'mother_name', 'godfather_name', 'godmother_name'].forEach((field) => {
+      ['husband_name', 'wife_name', 'husband_father', 'husband_mother', 'wife_father', 'wife_mother'].forEach((field) => {
         query.orWhere(`LOWER(${field}) LIKE :name`, { name: `%${searchWord?.toLowerCase()}%` })
       })
     }
@@ -47,16 +47,16 @@ export class BaptismService {
   }
 
   findOne(id: number) {
-    return this.baptismRepository.findOne({
+    return this.marriageRepository.findOne({
       where: { id }
     })
   }
 
-  update(id: number, updateBaptism: BaptismDto) {
-    return this.baptismRepository.update({ id }, updateBaptism)
+  update(id: number, updateMarriage: MarriageDto) {
+    return this.marriageRepository.update({ id }, updateMarriage)
   }
 
   remove(id: number) {
-    return this.baptismRepository.delete({ id })
+    return this.marriageRepository.delete({ id })
   }
 }
