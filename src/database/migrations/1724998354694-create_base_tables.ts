@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 // npm run migration:generate --name=create_base_tables
+// // npm run migration:run
 export class CreateBaseTables1724998354694 implements MigrationInterface {
     name = 'CreateBaseTables1724998354694'
 
