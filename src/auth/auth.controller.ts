@@ -4,7 +4,7 @@ import { LoginDto } from './dto/login.dto'
 import { RegisterDto } from './dto/register.dto'
 import { UserService } from '../modules/user/user.service'
 import { Public } from '../core/decorator/public.decorator'
-import { empty, formatJsonApiResponse } from 'src/core/helpers'
+import { empty, formatJsonApiResponse } from '../core/helpers'
 import { BadRequestException, Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException } from '@nestjs/common'
 
 const RESPONSE_TYPE = 'auth'

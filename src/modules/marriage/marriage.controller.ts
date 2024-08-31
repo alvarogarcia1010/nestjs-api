@@ -1,8 +1,8 @@
 import { MarriageDto } from './marriage.dto'
 import { MarriageService } from './marriage.service'
-import { empty, formatJsonApiResponse } from 'src/core/helpers'
-import { JsonApiBodyDto } from 'src/core/dto/json-api-body.dto'
-import { PaginationAndSearchQueryDto } from 'src/core/dto/pagination-and-search-query.dto'
+import { empty, formatJsonApiResponse } from '../../core/helpers'
+import { JsonApiBodyDto } from '../../core/dto/json-api-body.dto'
+import { PaginationAndSearchQueryDto } from '../../core/dto/pagination-and-search-query.dto'
 import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, HttpException, Query } from '@nestjs/common'
 
 const RESPONSE_TYPE = 'marriages'

@@ -3,7 +3,7 @@ import { MarriageDto } from './marriage.dto'
 import { Marriage } from './marriage.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { empty } from 'src/core/helpers'
+import { empty } from '../../core/helpers'
 
 @Injectable()
 export class MarriageService {

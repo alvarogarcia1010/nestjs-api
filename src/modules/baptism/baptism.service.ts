@@ -3,7 +3,7 @@ import { BaptismDto } from './baptism.dto'
 import { Baptism } from './baptism.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { empty } from 'src/core/helpers'
+import { empty } from '../../core/helpers'
 
 @Injectable()
 export class BaptismService {

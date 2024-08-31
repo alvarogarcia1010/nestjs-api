@@ -3,7 +3,7 @@ import { ConfirmationDto } from './confirmation.dto'
 import { Confirmation } from './confirmation.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { empty } from 'src/core/helpers'
+import { empty } from '../../core/helpers'
 
 @Injectable()
 export class ConfirmationService {
