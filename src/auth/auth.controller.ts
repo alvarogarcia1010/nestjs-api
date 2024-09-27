@@ -5,7 +5,7 @@ import { RegisterDto } from './dto/register.dto'
 import { UserService } from '../modules/user/user.service'
 import { Public } from '../core/decorator/public.decorator'
 import { empty, formatJsonApiResponse } from '../core/helpers'
-import { BadRequestException, Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException } from '@nestjs/common'
+import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UnauthorizedException } from '@nestjs/common'
 
 const RESPONSE_TYPE = 'auth'
 
@@ -69,5 +69,26 @@ export class AuthController {
       token,
       expires_in: 0,
     })
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('logged-user')
+  async getLoggedUser(@Req() request: Request) {
+    const payload = request['user']
+    const user = await this.userService.findOneByEmail(payload.email)
+
+    const token = this.extractTokenFromHeader(request)
+    const currentUser = Object.assign(user, { password: undefined })
+
+    return formatJsonApiResponse(currentUser, RESPONSE_TYPE, {
+      token,
+      expires_in: 0,
+    })
+  }
+
+  private extractTokenFromHeader(request: Request) {
+    const authHeader = (request.headers as any)?.authorization
+    const [type, token] = authHeader?.split(" ") ?? []
+    return type === "Bearer" ? token : undefined
   }
 }
