@@ -40,7 +40,7 @@ export class AuthController {
     
     return formatJsonApiResponse(savedUser, RESPONSE_TYPE, {
       token,
-      expires_in: 0,
+      expires_in: 3,
     })
   }
 
@@ -67,7 +67,7 @@ export class AuthController {
 
     return formatJsonApiResponse(currentUser, RESPONSE_TYPE, {
       token,
-      expires_in: 0,
+      expires_in: 3,
     })
   }
 
@@ -82,7 +82,7 @@ export class AuthController {
 
     return formatJsonApiResponse(currentUser, RESPONSE_TYPE, {
       token,
-      expires_in: 0,
+      expires_in: 3,
     })
   }
 
